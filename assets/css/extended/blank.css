@@ -172,7 +172,7 @@ img:active {
 
 
 /*页面顶部栏两边宽度*/
-.nav {
+.header-nav {
     max-width: calc(var(--nav-width) + var(--gap) * 10);
 }
 

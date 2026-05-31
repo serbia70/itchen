@@ -36,7 +36,7 @@
 {{- end }}
 
 <header class="header">
-    <nav class="nav">
+    <nav class="header-nav">
         <div class="logo">
             {{- $label_text := (site.Params.label.text | default site.Title) }}
             {{- if site.Title }}
@@ -95,8 +95,8 @@
                 {{- $lang := .Lang}}
                 {{- $separator := or $label_text (not site.Params.disableThemeToggle)}}
                 {{- with site.Home.AllTranslations }}
-                <ul class="lang-switch">
-                    {{- if $separator }}<li>|</li>{{ end }}
+                <ul class="lang-menu">
+                    {{- if $separator }}<span class="nav-sep">|</span>{{ end }}
                     {{- range . -}}
                     {{- if ne $lang .Lang }}
                     <li>
@@ -116,7 +116,7 @@
             </div>
         </div>
         {{- $currentPage := . }}
-        <ul id="menu">
+        <ul id="menu" class="menu">
             {{- range site.Menus.main }}
             {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
             {{- $page_url:= $currentPage.Permalink | absLangURL }}
