@@ -4,7 +4,7 @@ backend:
   name: github
   repo: serbia70/itchen
   branch: main
-  base_url: https://itchen.pages.dev
+  base_url: https://itchen.vercel.app
 
 media_folder: static/images
 public_folder: /images

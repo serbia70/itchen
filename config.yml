@@ -1,4 +1,4 @@
-baseURL: https://itchen.pages.dev
+baseURL: https://itchen.vercel.app
 languageCode: zh-cn # en-us
 title: "itchen's Blog"
 theme: PaperMod # 主题名字，和themes文件夹下的一致
