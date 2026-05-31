@@ -1,0 +1,99 @@
+{{- $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" .Content -}}
+{{- $has_headers := ge (len $headers) 1 -}}
+{{- if $has_headers -}}
+
+<div class="toc-container">
+    <div class="toc">
+        <details {{if (.Param "TocOpen") }} open{{ end }}>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">{{- i18n "toc" | default "Table of Contents" }}</span>
+            </summary>
+
+            {{- partial "toc_body.html" . -}}
+        </details>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Scroll spy: highlight active heading in all TOCs (sidebar / series embedded / inline)
+        const headings = Array.from(document.querySelectorAll(
+            '#single-content h1[id],#single-content h2[id],#single-content h3[id],#single-content h4[id],#single-content h5[id],#single-content h6[id]'
+        ));
+        if (headings.length === 0) return;
+
+        const headerHeightRaw = getComputedStyle(document.documentElement).getPropertyValue('--header-height').trim();
+        const headerHeight = Number.parseInt(headerHeightRaw, 10) || 60;
+        const threshold = headerHeight + 20;
+
+        const links = Array.from(document.querySelectorAll(
+            '.toc .inner a[href^="#"], .series-toc .inner a[href^="#"]'
+        ));
+        if (links.length === 0) return;
+
+        const linkMap = new Map(); // id(lowercase) -> [links]
+        links.forEach((link) => {
+            const href = link.getAttribute('href') || '';
+            if (!href.startsWith('#')) return;
+            let id = href.slice(1);
+            try {
+                id = decodeURIComponent(id);
+            } catch (e) {
+                // Keep raw id on decode errors
+            }
+            id = id.trim().toLowerCase();
+            if (!id) return;
+            if (!linkMap.has(id)) linkMap.set(id, []);
+            linkMap.get(id).push(link);
+        });
+
+        let activeId = null;
+
+        function setActive(id) {
+            if (!id) return;
+            const next = id.trim().toLowerCase();
+            if (next === activeId) return;
+
+            if (activeId && linkMap.has(activeId)) {
+                linkMap.get(activeId).forEach((a) => a.classList.remove('active'));
+            }
+
+            activeId = next;
+
+            if (linkMap.has(activeId)) {
+                linkMap.get(activeId).forEach((a) => a.classList.add('active'));
+            }
+        }
+
+        function computeActiveId() {
+            let current = headings[0].id;
+            for (const h of headings) {
+                if (h.getBoundingClientRect().top <= threshold) {
+                    current = h.id;
+                    continue;
+                }
+                break;
+            }
+            return current;
+        }
+
+        let ticking = false;
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(() => {
+                setActive(computeActiveId());
+                ticking = false;
+            });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        window.addEventListener('hashchange', onScroll, { passive: true });
+
+        // Initial
+        setActive(computeActiveId());
+    })();
+</script>
+
+{{- end -}}

@@ -1,0 +1,41 @@
+local_backend: true
+
+backend:
+  name: github
+  repo: serbia70/itchen
+  branch: main
+  base_url: https://itchen.pages.dev
+
+media_folder: static/images
+public_folder: /images
+
+collections:
+  - name: "post"
+    label: "文章"
+    label_singular: "文章"
+    folder: "content/posts"
+    create: true
+    summary: "{{title}} · {{date}}"
+    fields:
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "发布日期", name: "date", widget: "datetime"}
+      - {label: "最后修改日期", name: "lastmod", widget: "datetime", required: false}
+      - {label: "标签", name: "tags", widget: "list", required: false}
+      - {label: "分类", name: "categories", widget: "list", required: false}
+      - {label: "关键词", name: "keywords", widget: "list", required: false}
+      - {label: "描述", name: "description", widget: "text", required: false}
+      - {label: "封面图片", name: "cover", widget: "image", required: false}
+      - {label: "排序权重", name: "weight", widget: "number", required: false, default: 0}
+      - {label: "草稿", name: "draft", widget: "boolean", default: true}
+      - {label: "正文", name: "body", widget: "markdown"}
+
+  - name: "page"
+    label: "页面"
+    label_singular: "页面"
+    folder: "content"
+    create: true
+    fields:
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "发布日期", name: "date", widget: "datetime"}
+      - {label: "别名", name: "slug", widget: "string", required: false}
+      - {label: "正文", name: "body", widget: "markdown"}

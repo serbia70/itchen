@@ -1,0 +1,379 @@
+/*
+This is just a placeholder blank stylesheet so as to support adding custom styles budled with theme's default styles
+
+Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-css-with-themes-assets for more info
+*/
+
+:root {
+    /* Layout */
+    --footer-height: 90px;
+    --article-width: 800px;
+    --toc-width: 250px;
+    --series-width: 350px;
+
+    /* Colors */
+    --hljs-bg: rgb(44, 44, 44);
+    --code-bg: rgb(240, 240, 240);
+    --code-bg-border: rgb(200, 200, 200);
+    --black: rgb(0, 0, 0);
+    --white: rgb(255, 255, 255);
+    --tag: rgb(235, 235, 235);
+
+    /* Accent */
+    --lv-accent: #42b983;
+    --lv-accent-rgb: 66, 185, 131;
+
+    /* Border Colors */
+    --lv-border-light: #ddd;
+    --lv-border-table: #979da3;
+
+    /* Text Colors */
+    --lv-text-muted: #777;
+    --lv-text-hover: rgb(108, 108, 108);
+
+    /* Overlay & Shadow */
+    --lv-overlay-bg: rgba(0, 0, 0, 0.5);
+    --lv-shadow-dark: rgba(0, 0, 0, 0.15);
+
+    /* Typography */
+    --lv-font-mono: JetBrainsLxgwNerdMono;
+
+    /* Radius */
+    --lv-radius-sm: 5px;
+    --lv-radius-md: 10px;
+    --lv-radius-lg: 25px;
+    --lv-radius-media: 10px;
+
+    /* Scale */
+    --lv-scale-sm: 1.02;
+    --lv-scale-md: 1.06;
+    --lv-scale-friend: 1.08;
+    --lv-scale: 1.1;
+    --lv-scale-lg: 1.2;
+    --lv-scale-media-active: 1.35;
+
+    /* Spacing */
+    --gap: 24px;
+
+    /* Motion */
+    --transition-duration: 0.4s;
+    --lv-transition-fast: 0.3s;
+    --lv-transition-slow: 1s;
+    --lv-transition-rotate: 0.9s;
+    --lv-transition-transform: transform var(--transition-duration) ease;
+    --lv-transition-color: color var(--lv-transition-fast) ease;
+    --lv-transition-shadow-transform: box-shadow var(--transition-duration) ease, transform var(--transition-duration) ease;
+    --lv-transition-shadow-transform-slow: box-shadow var(--lv-transition-slow) ease, transform var(--lv-transition-slow) ease;
+    --box-shadow-default: 0px 2px 4px rgb(5 10 15 / 40%), 0px 7px 13px -3px rgb(5 10 15 / 30%);
+    --box-shadow-hover: 0px 4px 8px rgb(5 10 15 / 40%), 0px 7px 13px -3px rgb(5 10 15 / 30%);
+    --box-shadow-light: 1px 2px 2px 1px rgb(144 164 174 / 60%);
+}
+
+.dark {
+    /* Dark Mode Colors */
+    --lv-color-text-muted: rgba(180, 181, 182, 0.8);
+    --lv-border-light: rgba(255, 255, 255, 0.1);
+    --lv-text-muted: rgba(180, 181, 182, 0.6);
+    --lv-text-hover: rgba(180, 181, 182, 0.8);
+}
+
+.first-entry {
+    min-height: 100px;
+    margin: 0;
+}
+
+.social-icons {
+    padding: 0;
+    padding-bottom: 20px;
+}
+
+/*------------------------------------------------------------*/
+
+.post-content h1 {
+    font-size: 30px;
+    border-bottom: 1px solid var(--lv-border-light);
+}
+
+.post-content h2 {
+    font-size: 28px;
+    border-bottom: 1px solid var(--lv-border-light);
+}
+
+.post-content h3 {
+    font-size: 26px;
+    border-bottom: 1px solid var(--lv-border-light);
+}
+
+.post-content h4 {
+    font-size: 22px;
+}
+
+.post-content h5 {
+    font-size: 18px;
+}
+
+.post-content h6 {
+    font-size: 15px;
+}
+
+.post-content p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* 所有首行缩进 */
+    /* text-indent: 2em;  */
+}
+
+/*---------------------------------------------------*/
+
+.dark body,
+.dark a,
+.dark .post-title {
+    color: var(--lv-color-text-muted);
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark p {
+    color: var(--lv-color-text-muted);
+}
+
+.dark .toc .details {
+    color: var(--lv-color-text-muted);
+}
+
+/*------------------------------------------------------------*/
+
+/*img*/
+img {
+    border-radius: var(--lv-radius-media);
+}
+
+.dark img {
+    opacity: 0.8;
+}
+
+/*-----------点击图片放大------------*/
+img:active {
+    /* margin:50px; */
+    border-radius: var(--lv-radius-media);
+    transform: scale(var(--lv-scale-media-active), var(--lv-scale-media-active));
+}
+
+/*代码里的滚动*/
+@media screen and (min-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 15px;
+        height: 13px;
+    }
+}
+
+
+/*页面顶部栏两边宽度*/
+.nav {
+    max-width: calc(var(--nav-width) + var(--gap) * 10);
+}
+
+.main {
+    max-width: calc(var(--main-width) + var(--gap) * 5);
+}
+
+/*footer*/
+.footer {
+    max-width: none;
+    padding: 10px 0 5px 0;
+    font-size: 14px;
+    /* color: black; */
+    /* line-height: 50px; */
+}
+
+.footer a {
+    border-bottom: none;
+}
+
+.footer a:hover {
+    font-weight: bolder;
+    border-bottom: none;
+}
+
+/*字体大小*/
+.post-title {
+    font-size: 30px;
+}
+
+
+.post-content {
+    font-family: var(--lv-font-mono);
+}
+
+.dark .post-content {
+    color: var(--lv-color-text-muted);
+}
+
+body {
+    font-size: 18px;
+    line-height: 1.6;
+    font-family: var(--lv-font-mono);
+}
+
+/* 有序/无序列表缩进修复 */
+.post-content ul {
+    padding-inline-start: 30px;
+}
+
+.post-content ol {
+    padding-inline-start: 40px;
+}
+
+/* 二级列表缩进 */
+.post-content ul ul {
+    padding-inline-start: 20px;
+}
+
+.post-content ol ol {
+    padding-inline-start: 30px;
+}
+
+.post-content ul ol {
+    padding-inline-start: 30px;
+}
+
+.post-content ol ul {
+    padding-inline-start: 20px;
+}
+
+/*引言*/
+.post-content blockquote {
+    border-left: 4px solid var(--lv-accent);
+    padding: 1px 15px;
+    color: var(--lv-text-muted);
+    background-color: rgba(var(--lv-accent-rgb), 0.1);
+}
+
+/* GitHub 样式的表格 */
+.post-content table {
+    page-break-inside: avoid;
+    word-break: normal;
+}
+
+.post-content table tr {
+    border: 1px solid var(--lv-border-table) !important;
+}
+
+.post-content table tr:nth-child(2n),
+.post-content thead {
+    background-color: var(--code-bg);
+}
+
+.post-content table th {
+    border: 1px solid var(--lv-border-table) !important;
+    font-size: 18px;
+}
+
+.post-content table td {
+    border: 1px solid var(--lv-border-table) !important;
+}
+
+.entry-cover1 {
+    border-radius: var(--lv-radius-media);
+    display: flex;
+    justify-content: center;
+}
+
+.post-entry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.entry-cover {
+    border-radius: var(--lv-radius-media);
+    overflow: hidden;
+    width: 40%;
+    margin-bottom: unset;
+
+    max-height: 150px;
+    display: grid;
+    align-content: center;
+}
+
+/* 首页 cover 图小屏不展示 */
+@media (max-width: 640px) {
+    .entry-cover {
+      display: none;
+    }
+}
+
+.post-info {
+    display: inline-block;
+    overflow: hidden;
+    width: 100%;
+    padding-right: 10px;
+}
+
+.post-description {
+    padding-bottom: 10px;
+    color: var(--secondary);
+}
+
+/*---------------------------*/
+.topInner {
+    display: grid;
+    align-items: baseline;
+    justify-items: center;
+    margin: 7px;
+    font-weight: 900;
+}
+
+.topSvg {
+    width: 20px;
+}
+
+.top-link {
+    padding: unset;
+}
+
+/* ==================== 通用动画类 ==================== */
+
+/* Shared transition baseline */
+.hover-transition,
+.hover-shadow,
+.hover-scale-sm,
+.hover-scale-md,
+.hover-scale,
+.hover-scale-lg {
+    transition: var(--lv-transition-shadow-transform);
+    will-change: transform;
+}
+
+/* 带阴影的元素 */
+.hover-shadow {
+    box-shadow: var(--box-shadow-default);
+}
+
+.hover-shadow:hover {
+    box-shadow: var(--box-shadow-hover);
+}
+
+/* 缩放效果 - 1.02 (文章卡片) */
+.hover-scale-sm:hover {
+    transform: scale(var(--lv-scale-sm));
+}
+
+/* 缩放效果 - 1.06 (logo) */
+.hover-scale-md:hover {
+    transform: scale(var(--lv-scale-md));
+}
+
+/* 缩放效果 - 1.1 (按钮) */
+.hover-scale:hover {
+    transform: scale(var(--lv-scale));
+}
+
+/* 缩放效果 - 1.2 (分页按钮) */
+.hover-scale-lg:hover {
+    transform: scale(var(--lv-scale-lg));
+}

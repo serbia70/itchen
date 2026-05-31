@@ -1,0 +1,240 @@
+baseURL: https://itchen.pages.dev
+languageCode: zh-cn # en-us
+title: "itchen's Blog"
+theme: PaperMod # 主题名字，和themes文件夹下的一致
+
+enableInlineShortcodes: true
+enableEmoji: true # 允许使用 Emoji 表情，建议 true
+enableRobotsTXT: true # 允许爬虫抓取到搜索引擎，建议 true
+
+hasCJKLanguage: true # 自动检测是否包含 中文日文韩文 如果文章中使用了很多中文引号的话可以开启
+
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+googleAnalytics: # 谷歌统计
+# Copyright: Sulv
+
+pagination:
+  pagerSize: 15 # 每页显示的文章数
+summaryLength: 140 # 文章概览的字数，默认70
+
+minify:
+  disableXML: true
+  # minifyOutput: true
+
+permalinks: # 访问博客时网址的显示形式
+  post: "/:title/"
+  # post: "/:year/:month/:day/:title/"
+
+defaultContentLanguage: en # 最顶部首先展示的语言页面
+defaultContentLanguageInSubdir: true
+
+languages:
+  en:
+    languageName: "English"
+    weight: 1
+    # profileMode:
+    #   enabled: true
+    #   title: (=^･ω･^=)
+    #   subtitle: 👇 欢迎光临小站，联系方式 👇
+    #   # subtitle: "🧨学而时习之，不亦说乎？有朋自远方来，不亦乐乎？<br/>👇联系方式"
+    #   imageUrl: "/images/avatar.webp"
+    #   imageTitle:
+    #   imageWidth: 120
+    #   imageHeight: 120
+    #   buttons:
+    #     - name: 👨🏻‍💻 技术
+    #       url: posts/tech
+    #     - name: 🏗️ 建站
+    #       url: posts/blog
+    #     - name: 📖 阅读
+    #       url: posts/read
+    #     - name: 🏖️ 生活
+    #       url: posts/life
+    homeInfoParams:
+      Title: "欢迎光临小站🥂"
+      Content: >
+        本站主要内容包括读书笔记、技术积累、生活感悟。如果能有哪些内容可以帮助到你，那也是极好的。</br>
+        精通 CSS JavaScript PHP C C++ C# java Ruby Perl Python 等单词的拼写</br>
+        熟悉 Windows Linux Mac Android IOS 等系统的开关机</br>
+        喜欢的事情: 🏃‍♂️ 跑步 🎮️ 游戏 🎧 音乐 📺 动漫</br>
+        文章内容及标题随着想法或者思路可能会改变, 如果发现某些文章的链接丢失, 请善用搜索
+
+    menu:
+      main:
+        - identifier: home
+          name: 🏡 主页
+          url: /
+          weight: 01
+        - identifier: search
+          name: 🔍 搜索
+          url: search
+          weight: 10
+        - identifier: posts
+          name: 📚 文章
+          url: posts
+          weight: 30
+        # - identifier: tags
+        #   name: 🏷️ 标签
+        #   url: tags
+        #   weight: 40
+        - identifier: archives
+          name: 📈 归档
+          url: archives
+          weight: 50
+        - identifier: talk
+          name: 💬 说说
+          url: talk
+          weight: 60
+        - identifier: links
+          name: 🤝 友链
+          url: links
+          weight: 70
+        # - identifier: about
+        #   name: 🙋🏻‍♂️ 关于
+        #   url: about
+        #   weight: 80
+        # - identifier: categories
+        #   name: 🤙🏿 分类
+        #   url: categories
+        #   weight: 1
+        # - parent: categories
+        #   name: docker
+        #   url: /posts
+        #   weight: 8
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+frontmatter:
+  lastmod: ["lastmod", "date"]
+
+# 这里的参数会被代码以 .Site.Params 的形式读取
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  description: "itchen的个人博客"
+  author: serbia70
+  draft: false
+  defaultTheme: auto # defaultTheme: light or  dark
+  disableThemeToggle: false
+  DateFormat: "2006-01-02"
+  disableShare: true
+  ShowShareButtons: false
+  ShowReadingTime: false
+  disableSpecialistPost: true
+  displayFullLangName: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  hideFooter: false # 隐藏页脚
+  ShowWordCounts: true
+  VisitCount: true
+  ShowLastMod: true #显示文章更新时间
+
+  ShowToc: true # 显示目录
+  TocOpen: true # 自动展开目录
+  comments: true # 是否开启评论
+
+  extendCodeBackground: false # 代码块是否横向展开
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/serbia70"
+    - name: RSS
+      url: "index.xml"
+
+  label:
+    text: "itchen's Blog"
+    icon: "/images/avatar.webp"
+    iconHeight: 35
+
+  analytics:
+    google:
+      SiteVerificationTag: ""
+
+  assets:
+    favicon: "/images/avatar.webp"
+    favicon16x16: "/images/avatar.webp"
+    favicon32x32: "/images/avatar.webp"
+    apple_touch_icon: "/images/avatar.webp"
+    safari_pinned_tab: "/images/avatar.webp"
+
+  cover:
+    hidden: false # 隐藏cover图片，但是不在格式化数据中隐藏
+    hiddenInList: false # 在列表页隐藏cover图片
+    hiddenInSingle: true # 在文章内容页隐藏cover图片
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+  # footer配置
+  StartYear: 2020 # 底部开始年份
+  FilingNo: # 底部备案号
+  # PublicSecurityIconLink: 填自己的公安图标链接 # 填自己的公安图标链接,可用绝对路径，相对路径如 img/beian.png
+  # PublicNetworkSecurity: 填自己的公网安备 # 底部公网安备号
+
+  # 打赏
+  Reward: false
+  # 可用绝对和相对地址，相对地址的图片需放在static/images下
+  WechatPay: /images/blog-wechatpay.png
+  Alipay: /images/blog-alipay.png #打赏支付宝图片地址
+
+  # twkioo评论
+  twikoo:
+    version: 1.7.7
+
+taxonomies:
+  category: categories
+  tag: tags
+  series: series
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true # HUGO 默认转义 Markdown 文件中的 HTML 代码，如需开启的话
+  highlight:
+    codeFences: true # 代码围栏功能，这个功能一般都要设为 true 的，不然很难看，就是干巴巴的-代码文字，没有颜色。
+    guessSyntax: true # 猜测语法，这个功能建议设置为 true, 如果你没有设置要显示的语言则会自动匹配。
+    lineNos: false # 是否显示行号
+    noClasses: true # 使用 class 标签，而不是内嵌的内联样式
+    tabWidth: 4
+    style: paraiso-dark
+    # anchorLineNos: true
+    # hl_Lines：高亮的行号，一般这个不设置，因为每个代码块我们可能希望让高亮的地方不一样。
+    # lineNoStart：行号从编号几开始，一般从 1 开始。
+    # lineNumbersInTable：使用表来格式化行号和代码,而不是 标签。这个属性一般设置为 true.
+
+privacy:
+  vimeo:
+    disabled: false
+    simple: true
+
+  x:
+    disabled: false
+    enableDNT: true
+    simple: true
+
+  instagram:
+    disabled: false
+    simple: true
+
+  youtube:
+    disabled: false
+    privacyEnhanced: true
+
+services:
+  instagram:
+    disableInlineCSS: true
+  x:
+    disableInlineCSS: true

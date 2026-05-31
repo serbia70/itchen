@@ -1,0 +1,68 @@
+/* 底部分页 */
+.pagination {
+    display: block;
+    text-align: center;
+}
+
+.pagination a {
+    color: var(--primary);
+    padding: 0 15px;
+    background: var(--entry);
+    box-shadow: var(--box-shadow-default);
+}
+
+.pagination .pageNum a {
+    box-shadow: none;
+    color: var(--content);
+    background: var(--code-bg);
+}
+
+.dark .pagination .pageNum a {
+    background: var(--theme);
+}
+
+.pagination .pageNum {
+    font-weight: 700;
+}
+
+.pagination .numPrev,
+.pagination .numNext {
+    color: var(--code-bg-border);
+}
+
+/* 分页按钮通用样式 */
+.pagination .prev,
+.pagination .next,
+a.pagePrev,
+a.pageNext,
+a.pageFirst,
+a.pageLast {
+    display: inline-block;
+    transition: var(--lv-transition-shadow-transform);
+    box-shadow: var(--box-shadow-default);
+}
+
+.pagination .prev:hover,
+.pagination .next:hover,
+a.pagePrev:hover,
+a.pageNext:hover,
+a.pageFirst:hover,
+a.pageLast:hover {
+    transform: scale(var(--lv-scale-lg));
+    box-shadow: var(--box-shadow-hover);
+}
+
+a.pageNow {
+    display: inline-block;
+}
+
+/* 文章内的上一页/下一页 */
+.paginav .prev:hover,
+.paginav .next:hover {
+    background: rgb(220, 220, 220);
+}
+
+.dark .paginav .prev:hover,
+.dark .paginav .next:hover {
+    background: var(--border);
+}

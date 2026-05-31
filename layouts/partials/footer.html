@@ -1,0 +1,235 @@
+{{- if not (.Param "hideFooter") }}
+
+<footer class="footer">
+
+    <a href="https://gohugo.io/" target="_blank">
+        <img style="display: unset;" src="/images/blog-hugo.svg">
+    </a>
+    <a href="https://github.com/adityatelange/hugo-PaperMod" target="_blank">
+        <img style="display: unset;" src="/images/blog-papermod.svg">
+    </a>
+    <a href="https://cn.aliyun.com/" target="_blank">
+        <img style="display: unset;" src="/images/blog-aliyun.svg">
+    </a>
+
+    <br>
+
+    <span id="runtime_span"></span>
+    <script>
+        (function () {
+            const runtimeEl = document.getElementById("runtime_span");
+            if (!runtimeEl) return;
+
+            const startTime = new Date("7/13/2021 1:00:00").getTime();
+
+            function updateRuntime() {
+                const diffMs = Date.now() - startTime;
+                const totalSeconds = Math.floor(Math.max(0, diffMs) / 1000);
+                const days = Math.floor(totalSeconds / 86400);
+                const hours = Math.floor((totalSeconds % 86400) / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                runtimeEl.textContent = `网站已运行${days}天${hours}小时${minutes}分${seconds}秒`;
+            }
+
+            updateRuntime();
+            window.setInterval(updateRuntime, 1000);
+        })();
+    </script>
+    |
+    <script defer src="https://www.lvbibir.cn/busuanzi/js"></script>
+    <span id="busuanzi_container">
+        总访客数: <span id="busuanzi_site_uv"></span>
+        |
+        总访问量: <span id="busuanzi_site_pv"></span>
+    </span>
+
+    <br>
+
+    <a href="https://beian.miit.gov.cn/" target="_blank" style="border-bottom:1px solid">{{ .Site.Params.FilingNo }}</a>&nbsp;
+    |
+    {{- if .Site.Copyright }}
+    <span>{{ .Site.Copyright | markdownify }}</span>
+    {{- else }}
+    <span>
+        Copyright &copy; {{ .Site.Params.StartYear }}-{{ now.Year }}
+        <a href="{{ "" | absLangURL }}" style="border-bottom:1px solid">{{ .Site.Title }}</a>
+    </span>
+    {{- end }}
+
+</footer>
+{{- end }}
+
+{{- if (not .Site.Params.disableScrollToTop) }}
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <span class="topInner">
+        <svg class="topSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+        <span id="read_progress"></span>
+    </span>
+</a>
+{{- end }}
+
+<script>
+    (function () {
+        const readProgress = document.getElementById("read_progress");
+        const topLink = document.getElementById("top-link");
+
+        if (!readProgress && !topLink) return;
+
+        function update() {
+            const scrollEl = document.documentElement;
+            const scrollTop = scrollEl.scrollTop || document.body.scrollTop || 0;
+            const scrollHeight = scrollEl.scrollHeight || 0;
+            const clientHeight = scrollEl.clientHeight || 0;
+
+            if (readProgress) {
+                const max = Math.max(0, scrollHeight - clientHeight);
+                const percent = max > 0 ? Math.round((scrollTop / max) * 100) : 0;
+                readProgress.textContent = String(percent);
+            }
+
+            if (topLink) {
+                const visible = scrollTop > 400;
+                topLink.style.visibility = visible ? "visible" : "hidden";
+                topLink.style.opacity = visible ? "1" : "0";
+            }
+        }
+
+        let raf = 0;
+        function schedule() {
+            if (raf) return;
+            raf = window.requestAnimationFrame(() => {
+                raf = 0;
+                update();
+            });
+        }
+
+        document.addEventListener("scroll", schedule, { passive: true });
+        window.addEventListener("resize", schedule, { passive: true });
+        schedule();
+    })();
+</script>
+
+{{- partial "extend_footer.html" . }}
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+</script>
+
+{{- if (not .Site.Params.disableThemeToggle) }}
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+</script>
+{{- end }}
+
+{{- if (and (eq .Kind "page") (ne .Layout "archives") (ne .Layout "search") (.Param "ShowCodeCopyButtons")) }}
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = '{{- i18n "code_copy" | default "copy" }}';
+
+        function copyingDone() {
+            copybutton.innerText = '{{- i18n "code_copied" | default "copied!" }}';
+            setTimeout(() => {
+                copybutton.innerText = '{{- i18n "code_copy" | default "copy" }}';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) {}
+            selection.removeRange(range);
+        });
+
+        let language = codeblock.className.replaceAll("language-", "")
+        let macTool = document.createElement("div")
+        let macTool1 = document.createElement("div")
+        let macTool2 = document.createElement("div")
+        let macTool3 = document.createElement("div")
+        let languageType = document.createElement("div")
+        languageType.innerText = language
+        macTool.setAttribute('class', 'mac-tool')
+        macTool1.setAttribute('class', 'mac bb1')
+        macTool2.setAttribute('class', 'mac bb2')
+        macTool3.setAttribute('class', 'mac bb3')
+        languageType.setAttribute('class', 'language-type')
+        macTool.appendChild(macTool1)
+        macTool.appendChild(macTool2)
+        macTool.appendChild(macTool3)
+        macTool.appendChild(languageType)
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+            container.appendChild(macTool)
+        } else if (container.parentNode.firstChild === container) {
+            // td containing LineNos
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName === "TABLE") {
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+            container.appendChild(macTool)
+        } else {
+            codeblock.parentNode.appendChild(copybutton);
+            container.appendChild(macTool)
+        }
+    });
+</script>
+{{- end }}
+
+{{- if .Site.Params.extendCodeBackground }}
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    $("code[class^=language] ").on("mouseover", function () {
+        if ($(window).width() > 768 && this.clientWidth < this.scrollWidth) {
+            $(this).css("width", "135%")
+            $(this).css("border-top-right-radius", "var(--radius)")
+        }
+    }).on("mouseout", function () {
+        $(this).css("width", "100%")
+        $(this).css("border-top-right-radius", "unset")
+    })
+</script>
+{{- end }}

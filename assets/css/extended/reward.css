@@ -1,0 +1,45 @@
+/* 打赏 */
+#QR {
+    padding: 10px 0 10px 0;
+}
+
+#QR a {
+    border: 0;
+}
+
+#QR img {
+    width: 100px;
+    max-width: 100%;
+    display: inline-block;
+    margin: .8em 2em 0 2em;
+}
+
+#rewardButton {
+    line-height: 36px;
+    text-align: center;
+    height: 36px;
+    display: block;
+    border-radius: 4px;
+    transition: all var(--transition-duration) ease;
+    background-color: var(--code-bg);
+    color: var(--content);
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+.dark #rewardButton {
+    border: 1px solid rgb(55 56 62);
+    background-color: rgb(55 56 62);
+    color: var(--lv-color-text-muted);
+}
+
+#rewardButton:hover {
+    color: var(--content);
+    outline-style: none;
+    transform: scale(var(--lv-scale));
+}
+
+.dark #rewardButton:hover {
+    color: var(--lv-color-text-muted);
+    background-color: var(--border);
+}

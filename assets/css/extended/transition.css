@@ -1,0 +1,85 @@
+/* Transition primitives */
+.profile .profile_inner h1,
+#theme-toggle svg,
+.logo a,
+.archive-entry {
+    transition: var(--lv-transition-transform);
+}
+
+.top-link,
+.post-entry,
+.button {
+    transition: var(--lv-transition-shadow-transform);
+}
+
+/* 首页笑脸 */
+.profile .profile_inner h1:hover {
+    transform: scale(var(--lv-scale));
+}
+
+/* 主题切换按钮 */
+#theme-toggle svg:hover {
+    transform: scale(var(--lv-scale-lg));
+}
+
+button#theme-toggle {
+    margin: auto 15px;
+}
+
+/* 左上角名字 */
+.logo a:hover {
+    transform: scale(var(--lv-scale-md));
+}
+
+.logo a img {
+    border-radius: var(--lv-radius-lg);
+}
+
+/* 回到顶部按钮 */
+.top-link {
+    background: var(--entry);
+    box-shadow: var(--box-shadow-default);
+}
+
+.top-link:hover {
+    color: var(--lv-text-hover);
+    transform: scale(var(--lv-scale));
+    box-shadow: var(--box-shadow-hover);
+}
+
+.dark .top-link:hover {
+    color: var(--lv-color-text-muted);
+}
+
+/* 时间轴 */
+.archive-entry:hover {
+    transform: scale(var(--lv-scale-sm));
+}
+
+/* 文章卡片 */
+.post-entry {
+    box-shadow: var(--box-shadow-light);
+}
+
+.dark .post-entry {
+    box-shadow: var(--box-shadow-default);
+}
+
+.post-entry:hover {
+    transform: scale(var(--lv-scale-sm));
+}
+
+.dark .post-entry:hover {
+    box-shadow: var(--box-shadow-hover);
+}
+
+/* 首页按钮 */
+.button {
+    background: var(--entry);
+    box-shadow: var(--box-shadow-default);
+}
+
+.button:hover {
+    transform: scale(var(--lv-scale));
+    box-shadow: var(--box-shadow-hover);
+}

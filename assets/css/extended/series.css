@@ -1,0 +1,412 @@
+/* ==================== Post Single Layout (Series / Content / TOC) ==================== */
+/*
+布局模式由 JS 根据 CSS 变量计算断点后写入 class:
+- pg--series-popup: 1 列, Series 收起为弹出面板(按钮触发), TOC 在面板内
+- pg--series-two: 2 列, Series 固定左侧, TOC 融合进 Series
+- pg--series-three: 3 列, Series 固定左侧 + Content + 右侧 TOC
+- pg--toc-one: 1 列, (无 Series) TOC 使用正文内嵌版本(.toc--inline)
+- pg--toc-two: 2 列, (无 Series) Content + 右侧 TOC
+
+断点使用以下变量实时计算:
+- --series-width
+- --article-width
+- --toc-width
+- --content-gap
+*/
+
+body.post .main {
+    max-width: none;
+}
+
+.post-grid {
+    /* Bleed into `.main` padding so layout math uses full viewport width. */
+    width: calc(100% + (var(--gap) * 2));
+    margin: 0 calc(var(--gap) * -1);
+    padding-left: var(--gap);
+    padding-right: var(--gap);
+    box-sizing: border-box;
+    /* Align sidebars with the actual content start (post header has 24px top margin). */
+    --post-grid-top-offset: 24px;
+}
+
+.post-grid__series,
+.post-grid__content,
+.post-grid__toc {
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Base: single column */
+.post-grid__content {
+    width: 100%;
+    max-width: var(--article-width);
+    margin: 0 auto;
+}
+
+.post-grid__toc {
+    display: none;
+}
+
+/* ==================== Two/Three Column Layout ==================== */
+.post-grid.pg--toc-two {
+    display: grid;
+    column-gap: var(--content-gap);
+    align-items: start;
+    justify-content: start;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.post-grid.pg--series-two,
+.post-grid.pg--series-three {
+    display: grid;
+    column-gap: 0;
+    align-items: start;
+    justify-content: start;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* No Series: Content + TOC */
+.post-grid.pg--toc-two {
+    grid-template-columns: minmax(0, var(--article-width)) var(--toc-width);
+    --pg-total: calc(var(--article-width) + var(--toc-width) + (var(--content-gap) * 1));
+    --pg-shift: calc((var(--toc-width) + var(--content-gap)) / 2);
+    padding-left: clamp(0px, calc((100% - var(--pg-total)) / 2 + var(--pg-shift)), calc(100% - var(--pg-total)));
+}
+
+/* With Series: Series + Content (TOC embedded in Series) */
+.post-grid.pg--series-two {
+    /* Keep Series pinned to viewport left; center Content based on full viewport width. */
+    --pg-left: clamp(0px, calc((100% - var(--article-width)) / 2 - var(--series-width) - var(--content-gap)), 99999px);
+    grid-template-columns: var(--series-width) var(--content-gap) minmax(0, var(--pg-left)) minmax(0, var(--article-width)) minmax(0, 1fr);
+}
+
+/* With Series: Series + Content + TOC */
+.post-grid.pg--series-three {
+    /* Keep Series pinned to viewport left; center Content based on full viewport width. */
+    --pg-left: clamp(0px, calc((100% - var(--article-width)) / 2 - var(--series-width) - var(--content-gap)), 99999px);
+    grid-template-columns: var(--series-width) var(--content-gap) minmax(0, var(--pg-left)) minmax(0, var(--article-width)) var(--content-gap) var(--toc-width) minmax(0, 1fr);
+}
+
+.post-grid.pg--series-two .post-grid__series,
+.post-grid.pg--series-three .post-grid__series {
+    grid-column: 1;
+}
+
+.post-grid.pg--series-two .post-grid__content,
+.post-grid.pg--series-three .post-grid__content {
+    grid-column: 4;
+}
+
+.post-grid.pg--series-three .post-grid__toc {
+    grid-column: 6;
+}
+
+/* Sticky sidebars (non-popup) */
+.post-grid.pg--series-two .post-grid__series,
+.post-grid.pg--series-three .post-grid__series {
+    position: sticky;
+    top: var(--header-height);
+    margin-top: var(--post-grid-top-offset);
+    height: calc(100vh - var(--header-height) - var(--post-grid-top-offset));
+    align-self: start;
+}
+
+.post-grid.pg--series-two .series,
+.post-grid.pg--series-three .series {
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.post-grid.pg--toc-two .post-grid__toc,
+.post-grid.pg--series-three .post-grid__toc {
+    display: block;
+    position: sticky;
+    top: var(--header-height);
+    margin-top: var(--post-grid-top-offset);
+    align-self: start;
+}
+
+/* 3 列模式: 隐藏嵌入式 TOC */
+.post-grid.pg--series-three .series-toc {
+    display: none;
+}
+
+/* ==================== With Series: Popup ==================== */
+.post-grid.pg--series-popup .series-toggle-btn {
+    display: flex;
+}
+
+.post-grid.pg--series-popup .series-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--lv-overlay-bg);
+    z-index: 199;
+    opacity: 0;
+    transition: opacity var(--lv-transition-fast) ease;
+}
+
+.post-grid.pg--series-popup .series-overlay.is-open {
+    display: block;
+    opacity: 1;
+}
+
+.post-grid.pg--series-popup .series {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: min(var(--series-width), 85vw);
+    z-index: 200;
+    background: var(--theme);
+    border: none;
+    border-right: 1px solid var(--border);
+    border-radius: 0;
+    box-shadow: 4px 0 16px var(--lv-shadow-dark);
+    transform: translateX(-100%);
+    transition: transform var(--lv-transition-fast) ease;
+    will-change: transform;
+    overflow-y: auto;
+    height: 100%;
+    margin: 0;
+    padding: 16px;
+    padding-top: 50px;
+}
+
+.post-grid.pg--series-popup .series.is-open {
+    transform: translateX(0);
+}
+
+.post-grid.pg--series-popup .series-close-btn {
+    display: flex;
+}
+
+/* ==================== Series Sidebar Styles ==================== */
+
+.series {
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    background: var(--entry);
+    border-radius: var(--radius);
+    padding: 12px;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.series-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 10px;
+}
+
+.series-icon {
+    font-size: 1.1em;
+}
+
+.series-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--primary);
+}
+
+.series-count {
+    font-size: 0.85rem;
+    color: var(--secondary);
+}
+
+.series-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.series::-webkit-scrollbar {
+    width: 6px;
+}
+
+.series::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.series-item {
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border);
+}
+
+.series-item:last-child {
+    border-bottom: none;
+}
+
+.series-item > a {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: var(--secondary);
+    transition: var(--lv-transition-color);
+}
+
+.series-item > a:hover {
+    color: var(--primary);
+}
+
+/* Current article highlight */
+.series-current > a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.series-current {
+    background: rgba(var(--lv-accent-rgb), 0.1);
+    margin: 0 -12px;
+    padding: 6px 12px;
+    border-radius: var(--radius);
+}
+
+/* ==================== Embedded TOC (inside Series) ==================== */
+
+.series-toc {
+    margin-top: 8px;
+    margin-bottom: 10px;
+    border-left: 2px solid var(--border);
+    padding-left: 8px;
+    margin-left: 4px;
+}
+
+.series-current .series-toc {
+    margin-left: 0;
+}
+
+.series-toc .inner {
+    margin: 0;
+    padding: 0;
+    max-height: none;
+    overflow: visible;
+}
+
+.series-toc ul {
+    padding-left: 12px;
+    list-style: none;
+    margin: 0;
+}
+
+.series-toc li {
+    padding: 2px 0;
+    font-size: 0.85rem;
+}
+
+.series-toc a {
+    color: var(--secondary);
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.series-toc a:hover {
+    color: var(--primary);
+}
+
+/* ==================== Series Popup UI ==================== */
+
+.series-toggle-btn {
+    display: none;
+    position: fixed;
+    left: 30px;
+    bottom: 110px;
+    z-index: 99;
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+    border-radius: 64px;
+    background: var(--entry);
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    font-size: 12px;
+    transition: var(--lv-transition-shadow-transform);
+    box-shadow: var(--box-shadow-default);
+}
+
+.series-toggle-btn:hover {
+    color: var(--primary);
+    transform: scale(var(--lv-scale));
+    box-shadow: var(--box-shadow-hover);
+}
+
+.series-toggle-btn:focus {
+    outline: 0;
+}
+
+.series-toggle-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+}
+
+.series-toggle-btn.is-open {
+    color: var(--primary);
+    background: var(--tertiary);
+}
+
+.series-overlay {
+    display: none;
+}
+
+.series-close-btn {
+    display: none;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    z-index: 201;
+}
+
+.series-close-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--primary);
+}
+
+/* ==================== Dark Mode Adjustments ==================== */
+
+.dark .series {
+    background: var(--entry);
+}
+
+.dark .series-item > a {
+    color: var(--lv-color-text-muted);
+}
+
+.dark .series-item > a:hover,
+.dark .series-current > a {
+    color: var(--primary);
+}
+
+.dark .series-toc a {
+    color: var(--lv-color-text-muted);
+}
+
+.dark .series-toc a:hover {
+    color: var(--primary);
+}
+
+.dark .series-toggle-btn {
+    background: var(--entry);
+}

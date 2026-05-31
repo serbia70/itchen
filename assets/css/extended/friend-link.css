@@ -1,0 +1,107 @@
+/* 友链 */
+.friendurl {
+    text-decoration: none !important;
+    color: black;
+    box-shadow: none !important;
+}
+
+.myfriend {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50% !important;
+    padding: 2px;
+    margin-top: 20px !important;
+    margin-left: 14px !important;
+    background-color: #fff;
+}
+
+.frienddiv {
+    overflow: auto;
+    height: 100px;
+    width: 49%;
+    display: inline-block !important;
+    border-radius: var(--lv-radius-sm);
+    background: none;
+    transition: var(--lv-transition-shadow-transform);
+}
+
+.frienddiv:hover {
+    background: var(--theme);
+    transform: scale(var(--lv-scale-friend));
+    transition: var(--lv-transition-shadow-transform-slow);
+}
+
+.dark .frienddiv:hover {
+    background: var(--code-bg);
+}
+
+.frienddivleft img {
+    will-change: transform;
+}
+
+.frienddiv:hover .frienddivleft img {
+    transition: var(--lv-transition-rotate) !important;
+    transform: rotate(360deg) !important;
+}
+
+.frienddivleft {
+    width: 92px;
+    float: left;
+    margin-right: -5px;
+}
+
+.frienddivright {
+    margin-top: 18px;
+    margin-right: 18px;
+}
+
+.friendname {
+    text-overflow: ellipsis;
+    font-size: 100%;
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+.friendinfo {
+    text-overflow: ellipsis;
+    font-size: 70%;
+    color: var(--primary);
+}
+
+.dark .friendname,
+.dark .friendinfo {
+    color: var(--lv-color-text-muted);
+}
+
+.friend details summary::marker {
+    font-size: 20px;
+    content: '👉';
+}
+
+.friend details[open] summary::marker {
+    font-size: 20px;
+    content: '👇';
+}
+
+@media screen and (max-width: 600px) {
+    .friendinfo {
+        display: none;
+    }
+
+    .frienddivleft {
+        width: 84px;
+        margin: auto;
+    }
+
+    .frienddivright {
+        height: 100%;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .friendname {
+        font-size: 18px;
+    }
+}

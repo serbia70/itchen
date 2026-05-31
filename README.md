@@ -1,0 +1,69 @@
+# lvbibir's Blog
+
+基于 [PaperMod](https://github.com/adityatelange/hugo-PaperMod) 主题深度定制的个人技术博客。
+
+## 在线访问
+
+🌐 https://www.lvbibir.cn
+
+## 自定义功能
+
+### 核心特性
+
+- **Series 侧边栏** - 系列文章智能导航，支持 3 种响应式布局（弹出/2 列/3 列）
+- **响应式目录** - 桌面固定 + 移动端弹出，滚动同步高亮
+- **图片懒加载** - IntersectionObserver 实现，优化加载性能
+- **Mac 风格代码块** - 一键复制，语法高亮优化
+
+### 交互增强
+
+- **Twikoo 评论系统** - 自托管评论服务
+- **打赏功能** - 微信/支付宝二维码支持
+- **友链卡片** - 自定义 shortcode 实现
+- **阅读进度条** - 实时显示滚动百分比
+
+### 统计与展示
+
+- **访问统计** - 不蒜子统计集成
+- **网站运行时间** - 自 2021-07-13 起
+
+## 技术栈
+
+- **框架**: Hugo v0.100.0
+- **主题**: PaperMod (Git Submodule)
+- **部署**: GitHub Actions → GitHub Pages
+- **评论**: Twikoo v1.6.44
+
+## 本地开发
+
+```bash
+# 克隆仓库（包含子模块）
+git clone --recursive https://github.com/lvbibir/blog.git
+
+# 启动开发服务器
+hugo server -D
+
+# 构建生产版本
+hugo --minify
+```
+
+## 项目结构
+
+```
+blog/
+├── content/          # Markdown 文章内容
+├── layouts/          # 自定义模板覆盖
+├── assets/css/       # 自定义样式
+├── static/           # 静态资源（图片/JS/字体）
+├── themes/PaperMod/  # 主题子模块
+└── config.yml        # 站点配置
+```
+
+## 致谢
+
+- 模板参考: [sulv-hugo-papermod](https://github.com/xyming108/sulv-hugo-papermod)
+- 主题仓库: [hugo-PaperMod](https://github.com/adityatelange/hugo-PaperMod)
+
+## License
+
+MIT

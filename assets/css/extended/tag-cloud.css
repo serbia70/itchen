@@ -1,0 +1,23 @@
+/* 标签云 */
+.terms-tags {
+    text-align: center;
+}
+
+.terms-tags a {
+    border-radius: 30px;
+    background: none;
+    transition: var(--lv-transition-transform);
+}
+
+.terms-tags a:hover {
+    background: none;
+    transform: scale(var(--lv-scale-lg));
+}
+
+.dark .terms-tags a {
+    background: none;
+}
+
+.terms-tags li {
+    margin: 5px;
+}
