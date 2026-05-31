@@ -78,8 +78,16 @@ Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-cs
 }
 
 .first-entry {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     min-height: 100px;
-    margin: 0;
+    margin: var(--gap) 0;
+    padding: var(--gap);
+    background: var(--entry);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
 }
 
 .social-icons {
@@ -283,6 +291,13 @@ body {
 }
 
 .post-entry {
+    position: relative;
+    margin-bottom: var(--gap);
+    padding: var(--gap);
+    background: var(--entry);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    transition: transform 0.25s ease;
     display: flex;
     flex-direction: row;
     align-items: center;
