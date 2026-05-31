@@ -48,8 +48,8 @@
     border-bottom-color: var(--lv-accent);
 }
 
-.dark .toc a.active,
-.dark .series-toc a.active {
+[data-theme=dark] .toc a.active,
+[data-theme=dark] .series-toc a.active {
     color: var(--content);
 }
 
@@ -89,7 +89,7 @@
     padding: 5px 0 0 0;
 }
 
-.dark .toc li a:hover {
+[data-theme=dark] .toc li a:hover {
     color: var(--content);
 }
 

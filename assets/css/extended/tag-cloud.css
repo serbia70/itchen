@@ -14,7 +14,7 @@
     transform: scale(var(--lv-scale-lg));
 }
 
-.dark .terms-tags a {
+[data-theme=dark] .terms-tags a {
     background: none;
 }
 

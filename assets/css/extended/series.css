@@ -386,27 +386,27 @@ body.post .main {
 
 /* ==================== Dark Mode Adjustments ==================== */
 
-.dark .series {
+[data-theme=dark] .series {
     background: var(--entry);
 }
 
-.dark .series-item > a {
+[data-theme=dark] .series-item > a {
     color: var(--lv-color-text-muted);
 }
 
-.dark .series-item > a:hover,
-.dark .series-current > a {
+[data-theme=dark] .series-item > a:hover,
+[data-theme=dark] .series-current > a {
     color: var(--primary);
 }
 
-.dark .series-toc a {
+[data-theme=dark] .series-toc a {
     color: var(--lv-color-text-muted);
 }
 
-.dark .series-toc a:hover {
+[data-theme=dark] .series-toc a:hover {
     color: var(--primary);
 }
 
-.dark .series-toggle-btn {
+[data-theme=dark] .series-toggle-btn {
     background: var(--entry);
 }

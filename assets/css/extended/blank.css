@@ -69,7 +69,7 @@ Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-cs
     --box-shadow-light: 1px 2px 2px 1px rgb(144 164 174 / 60%);
 }
 
-.dark {
+[data-theme=dark] {
     /* Dark Mode Colors */
     --lv-color-text-muted: rgba(180, 181, 182, 0.8);
     --lv-border-light: rgba(255, 255, 255, 0.1);
@@ -125,23 +125,22 @@ Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-cs
 
 /*---------------------------------------------------*/
 
-.dark body,
-.dark a,
-.dark .post-title {
+[data-theme=dark] a,
+[data-theme=dark] .post-title {
     color: var(--lv-color-text-muted);
 }
 
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark h5,
-.dark h6,
-.dark p {
+[data-theme=dark] h1,
+[data-theme=dark] h2,
+[data-theme=dark] h3,
+[data-theme=dark] h4,
+[data-theme=dark] h5,
+[data-theme=dark] h6,
+[data-theme=dark] p {
     color: var(--lv-color-text-muted);
 }
 
-.dark .toc .details {
+[data-theme=dark] .toc .details {
     color: var(--lv-color-text-muted);
 }
 
@@ -152,7 +151,7 @@ img {
     border-radius: var(--lv-radius-media);
 }
 
-.dark img {
+[data-theme=dark] img {
     opacity: 0.8;
 }
 
@@ -209,7 +208,7 @@ img:active {
     font-family: var(--lv-font-mono);
 }
 
-.dark .post-content {
+[data-theme=dark] .post-content {
     color: var(--lv-color-text-muted);
 }
 

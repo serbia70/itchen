@@ -27,7 +27,7 @@
     padding: 0 25px;
 }
 
-.dark #rewardButton {
+[data-theme=dark] #rewardButton {
     border: 1px solid rgb(55 56 62);
     background-color: rgb(55 56 62);
     color: var(--lv-color-text-muted);
@@ -39,7 +39,7 @@
     transform: scale(var(--lv-scale));
 }
 
-.dark #rewardButton:hover {
+[data-theme=dark] #rewardButton:hover {
     color: var(--lv-color-text-muted);
     background-color: var(--border);
 }

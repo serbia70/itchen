@@ -31,7 +31,7 @@
     transition: var(--lv-transition-shadow-transform-slow);
 }
 
-.dark .frienddiv:hover {
+[data-theme=dark] .frienddiv:hover {
     background: var(--code-bg);
 }
 
@@ -68,8 +68,8 @@
     color: var(--primary);
 }
 
-.dark .friendname,
-.dark .friendinfo {
+[data-theme=dark] .friendname,
+[data-theme=dark] .friendinfo {
     color: var(--lv-color-text-muted);
 }
 

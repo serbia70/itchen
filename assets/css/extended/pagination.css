@@ -17,7 +17,7 @@
     background: var(--code-bg);
 }
 
-.dark .pagination .pageNum a {
+[data-theme=dark] .pagination .pageNum a {
     background: var(--theme);
 }
 
@@ -62,7 +62,7 @@ a.pageNow {
     background: rgb(220, 220, 220);
 }
 
-.dark .paginav .prev:hover,
-.dark .paginav .next:hover {
+[data-theme=dark] .paginav .prev:hover,
+[data-theme=dark] .paginav .next:hover {
     background: var(--border);
 }
