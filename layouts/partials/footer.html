@@ -20,7 +20,7 @@
             const runtimeEl = document.getElementById("runtime_span");
             if (!runtimeEl) return;
 
-            const startTime = new Date("7/13/2021 1:00:00").getTime();
+            const startTime = new Date("2026-05-31").getTime();
 
             function updateRuntime() {
                 const diffMs = Date.now() - startTime;
@@ -36,14 +36,6 @@
             window.setInterval(updateRuntime, 1000);
         })();
     </script>
-    |
-    <script defer src="https://www.lvbibir.cn/busuanzi/js"></script>
-    <span id="busuanzi_container">
-        总访客数: <span id="busuanzi_site_uv"></span>
-        |
-        总访问量: <span id="busuanzi_site_pv"></span>
-    </span>
-
     <br>
 
     <a href="https://beian.miit.gov.cn/" target="_blank" style="border-bottom:1px solid">{{ .Site.Params.FilingNo }}</a>&nbsp;
